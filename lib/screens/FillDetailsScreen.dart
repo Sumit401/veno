@@ -8,6 +8,7 @@ import '../reusableWidgets/Dividers.dart';
 import '../reusableWidgets/appBar.dart';
 import '../reusableWidgets/flutterToast.dart';
 import '../reusableWidgets/imageDec.dart';
+import '../reusableWidgets/textInputDecoration.dart';
 import 'homePage.dart';
 
 class FillDetailsScreen extends StatefulWidget {
@@ -30,33 +31,12 @@ class _FillDetailsScreenState extends State<FillDetailsScreen> {
           children: [
             headingText(),
             const Spacer(),
-            textInput(),
+            textInputName(),
+            Dividers.verticalSeparator(50),
+            textInputEmail(),
             const Spacer(),
             const Spacer(),
-            Consumer<LoginProvider>(
-              builder: (context, loginProvider, child) {
-                return ElevatedButton(
-                    style: ButtonStyles.buttonStyleBlueColor(),
-                    onPressed: () async {
-                      if (loginProvider.userName != "" &&
-                          loginProvider.userEmail != "") {
-                        await loginProvider.updateProfileFunc();
-
-                        if (loginProvider.updateProfileResponse?.status ==
-                            true) {
-                          Navigator.of(context).pushReplacement(
-                              MaterialPageRoute(
-                                  builder: (context) => const HomeScreen()));
-                        } else {
-                          showFlutterToast(
-                              (loginProvider.updateProfileResponse?.response)
-                                  .toString());
-                        }
-                      }
-                    },
-                    child: const Text(ImageDec.next));
-              },
-            ),
+            submitButton(),
           ],
         ),
       ),
@@ -86,56 +66,69 @@ class _FillDetailsScreenState extends State<FillDetailsScreen> {
     );
   }
 
-  textInput() {
+  Widget textInputName() {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 25.w),
       child: Consumer<LoginProvider>(
         builder: (context, loginProvider, child) {
-          return Column(
-            children: [
-              TextFormField(
-                style: const TextStyle(
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 1.5,
-                    color: Colors.black),
-                keyboardType: TextInputType.name,
-                decoration: const InputDecoration(
-                    border: InputBorder.none,
-                    hintText: "Enter your name",
-                    hintStyle: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w700,
-                        letterSpacing: 1.5,
-                        color: Colors.black54)),
-                onChanged: (value) {
-                  loginProvider.getName(value);
-                },
-              ),
-              Dividers.verticalSeparator(50),
-              TextFormField(
-                style: const TextStyle(
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 1.5,
-                    color: Colors.black),
-                keyboardType: TextInputType.name,
-                decoration: const InputDecoration(
-                    border: InputBorder.none,
-                    hintText: "Enter your Email",
-                    hintStyle: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w700,
-                        letterSpacing: 1.5,
-                        color: Colors.black54)),
-                onChanged: (value) {
-                  loginProvider.getEmail(value);
-                },
-              ),
-            ],
+          return TextFormField(
+            style: const TextStyle(
+                fontSize: 25,
+                fontWeight: FontWeight.bold,
+                letterSpacing: 1.5,
+                color: Colors.black),
+            keyboardType: TextInputType.name,
+            decoration: textInputDecoration("Enter your Name"),
+            onChanged: (value) {
+              loginProvider.getName(value);
+            },
           );
         },
       ),
+    );
+  }
+
+  Widget textInputEmail() {
+    return Consumer<LoginProvider>(
+      builder: (context, loginProvider, child) {
+        return TextFormField(
+          style: const TextStyle(
+              fontSize: 25,
+              fontWeight: FontWeight.bold,
+              letterSpacing: 1.5,
+              color: Colors.black),
+          keyboardType: TextInputType.name,
+          decoration: textInputDecoration("Enter your Email"),
+          onChanged: (value) {
+            loginProvider.getEmail(value);
+          },
+        );
+      },
+    );
+  }
+
+  Widget submitButton() {
+    return Consumer<LoginProvider>(
+      builder: (context, loginProvider, child) {
+        return ElevatedButton(
+            style: ButtonStyles.buttonStyleBlueColor(),
+            onPressed: () async {
+              if (loginProvider.userName != "" &&
+                  loginProvider.userEmail != "") {
+                await loginProvider.updateProfileFunc();
+
+                if (loginProvider.updateProfileResponse?.status == true) {
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(
+                      builder: (context) => const HomeScreen()));
+                } else {
+                  showFlutterToast(
+                      (loginProvider.updateProfileResponse?.response)
+                          .toString());
+                }
+              }
+            },
+            child: const Text(ImageDec.next));
+      },
     );
   }
 }
