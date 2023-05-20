@@ -127,9 +127,6 @@ class _VerifyOTPState extends State<VerifyOTP> {
               /*-----------------------------------------------------------------------------*/
             }
           },
-          onChanged: (value) {
-            debugPrint('onChanged: $value');
-          },
         );
       },
     );

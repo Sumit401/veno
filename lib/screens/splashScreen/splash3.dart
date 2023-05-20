@@ -31,13 +31,16 @@ class Splash3 extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
+          /*-----------------------------------------------------------------------------*/
           ElevatedButton(
               style: ButtonStyles.buttonStyleBlueColor(),
               onPressed: () {
                 Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => LoginScreen()));
               },
               child: const Text("Login", style: TextStyle(fontSize: 16))),
+          /*-----------------------------------------------------------------------------*/
           Dividers.verticalSeparator(10),
+          /*-----------------------------------------------------------------------------*/
           ElevatedButton(
               style: ButtonStyles.buttonStyleLightBlueColor(),
               onPressed: () {
@@ -50,7 +53,9 @@ class Splash3 extends StatelessWidget {
                   const Text("Continue With Google", style: TextStyle(fontSize: 16, color: Colors.black)),
                 ],
               )),
+          /*-----------------------------------------------------------------------------*/
           Dividers.verticalSeparator(10),
+          /*-----------------------------------------------------------------------------*/
           ElevatedButton(
               style: ButtonStyles.buttonStyleLightBlueColor(),
               onPressed: () {
@@ -63,6 +68,7 @@ class Splash3 extends StatelessWidget {
                   const Text("Continue With Apple", style: TextStyle(fontSize: 16, color: Colors.black)),
                 ],
               ))
+          /*-----------------------------------------------------------------------------*/
         ],
       ),
     );
