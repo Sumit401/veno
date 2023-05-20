@@ -113,19 +113,25 @@ class _FillDetailsScreenState extends State<FillDetailsScreen> {
         return ElevatedButton(
             style: ButtonStyles.buttonStyleBlueColor(),
             onPressed: () async {
+              /*-----------------------------------------------------------------------------*/
               if (loginProvider.userName != "" &&
                   loginProvider.userEmail != "") {
+                /*-----------------------------------------------------------------------------*/
                 await loginProvider.updateProfileFunc();
-
+                /*-----------------------------------------------------------------------------*/
                 if (loginProvider.updateProfileResponse?.status == true) {
+                  /*-----------------------------------------------------------------------------*/
                   Navigator.of(context).pushReplacement(MaterialPageRoute(
                       builder: (context) => const HomeScreen()));
+                  /*-----------------------------------------------------------------------------*/
                 } else {
+                  /*-----------------------------------------------------------------------------*/
                   showFlutterToast(
-                      (loginProvider.updateProfileResponse?.response)
-                          .toString());
+                      (loginProvider.updateProfileResponse?.response).toString());
+                  /*-----------------------------------------------------------------------------*/
                 }
               }
+              /*-----------------------------------------------------------------------------*/
             },
             child: const Text(ImageDec.next));
       },

@@ -104,20 +104,27 @@ class _VerifyOTPState extends State<VerifyOTP> {
           ),
           onCompleted: (pin) async {
             debugPrint('onCompleted: $pin');
+            /*-----------------------------------------------------------------------------*/
             await loginProvider.verifyOTPFunc(pin);
+            /*-----------------------------------------------------------------------------*/
             if (loginProvider.verifyOtpResponse?.status == true &&
                 loginProvider.verifyOtpResponse?.profileExists == true) {
+              /*-----------------------------------------------------------------------------*/
               Navigator.of(context).pushReplacement(
                   MaterialPageRoute(builder: (context) => const HomeScreen()));
+              /*-----------------------------------------------------------------------------*/
             } else if (loginProvider.verifyOtpResponse?.status == true &&
                 loginProvider.verifyOtpResponse?.profileExists == false) {
+              /*-----------------------------------------------------------------------------*/
               Navigator.of(context).pushReplacement(MaterialPageRoute(
                   builder: (context) => const FillDetailsScreen()));
+              /*-----------------------------------------------------------------------------*/
             } else {
-              print("hi");
+              /*-----------------------------------------------------------------------------*/
               showFlutterToast(
                   (loginProvider.verifyOtpResponse?.response?.toUpperCase())
                       .toString());
+              /*-----------------------------------------------------------------------------*/
             }
           },
           onChanged: (value) {
